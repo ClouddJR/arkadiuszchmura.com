@@ -1,0 +1,74 @@
+baseURL: http://arkadiuszchmura.com/
+languageCode: en-us
+title: Arkadiusz Chmura
+theme: PaperMod
+paginate: 10
+
+enableInlineShortcodes: true
+enableRobotsTXT: true
+buildDrafts: false
+buildFuture: false
+buildExpired: false
+enableEmoji: true
+
+minify:
+  disableXML: true
+  minifyOutput: true
+
+outputs:
+  home:
+    - HTML
+    - RSS
+    - JSON
+
+params:
+  env: production
+  title: Arkadiusz Chmura
+  defaultTheme: light
+
+  showReadingTime: true
+  showPostNavLinks: true
+  showBreadCrumbs: true
+  showCodeCopyButtons: true
+  disableScrollToTop: true
+
+  homeInfoParams:
+    Title: Hi! 👋
+    Content: >
+      I'm Arkadiusz, a Software Engineer from Poland.
+
+
+      I mostly work with Android (Kotlin).
+
+
+      This blog will serve as my *[engineering daybook](https://www.oreilly.com/library/view/the-pragmatic-programmer/9780135956977/f_0041.xhtml).*
+
+
+      I will be sharing my thoughts and things I learn along the way.
+
+  socialIcons:
+    - name: github
+      url: https://github.com/ClouddJR/
+    - name: twitter
+      url: https://twitter.com/ClouddJR/
+
+  cover:
+    hidden: true
+    hiddenInSingle: false
+
+  assets:
+    disableHLJS: true
+
+menu:
+  main:
+    - name: Archive
+      url: archive
+    - name: Search
+      url: search
+
+markup:
+  goldmark:
+    renderer:
+      unsafe: true
+  highlight:
+    style: dracula
