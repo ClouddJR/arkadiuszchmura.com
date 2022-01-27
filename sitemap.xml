@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>http://arkadiuszchmura.com/</loc>
+    <lastmod>2022-01-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/posts/hello-world/</loc>
+    <lastmod>2022-01-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/posts/</loc>
+    <lastmod>2022-01-27T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/archive/</loc>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/categories/</loc>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/search/</loc>
+  </url><url>
+    <loc>http://arkadiuszchmura.com/tags/</loc>
+  </url>
+</urlset>
