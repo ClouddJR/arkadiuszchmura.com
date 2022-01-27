@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title>Tags on Arkadiusz Chmura</title>
-    <link>www.arkadiuszchmura.com/tags/</link>
+    <link>https://arkadiuszchmura.com/tags/</link>
     <description>Recent content in Tags on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
-    <language>en-us</language><atom:link href="www.arkadiuszchmura.com/tags/index.xml" rel="self" type="application/rss+xml" />
+    <language>en-us</language><atom:link href="https://arkadiuszchmura.com/tags/index.xml" rel="self" type="application/rss+xml" />
   </channel>
 </rss>

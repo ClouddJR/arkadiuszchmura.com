@@ -1,3 +1,3 @@
 User-agent: *
 Disallow:
-Sitemap: www.arkadiuszchmura.com/sitemap.xml
+Sitemap: https://arkadiuszchmura.com/sitemap.xml
