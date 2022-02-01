@@ -6,14 +6,14 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 27 Jan 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>Hello World!</title>
-      <link>https://arkadiuszchmura.com/posts/hello-world/</link>
-      <pubDate>Thu, 27 Jan 2022 00:00:00 +0000</pubDate>
+      <title>Beware of the order of operands in some Kotlin Collection operations</title>
+      <link>https://arkadiuszchmura.com/posts/beware-of-the-order-of-operands-in-some-kotlin-collection-operations/</link>
+      <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
       
-      <guid>https://arkadiuszchmura.com/posts/hello-world/</guid>
-      <description>First post on my blog</description>
+      <guid>https://arkadiuszchmura.com/posts/beware-of-the-order-of-operands-in-some-kotlin-collection-operations/</guid>
+      <description>The order of operands can drastically affect the performance of your code.</description>
     </item>
     
   </channel>
