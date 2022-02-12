@@ -51,6 +51,8 @@ params:
       url: https://github.com/ClouddJR/
     - name: twitter
       url: https://twitter.com/ClouddJR/
+    - name: rss
+      url: "https://arkadiuszchmura.com/index.xml"
 
   cover:
     hidden: true
