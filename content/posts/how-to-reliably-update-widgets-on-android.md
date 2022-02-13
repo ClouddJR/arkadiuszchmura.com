@@ -62,7 +62,7 @@ class WidgetUpdateWorker(
 
         val intent = Intent(
             AppWidgetManager.ACTION_APPWIDGET_UPDATE, null, appContext,
-            AppWidgetProvider::class.java
+            MyAppWidgetProvider::class.java
         )
         intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, widgetIds)
         appContext.sendBroadcast(intent)
