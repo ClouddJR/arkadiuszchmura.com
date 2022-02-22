@@ -10,7 +10,7 @@ Users of [one of my apps](https://play.google.com/store/apps/details?id=com.arka
 
 Not long ago, I have been getting some emails (as well as 1-star reviews) from my users reporting that their widgets are not being updated properly on their phones.
 
-The Android documentation says that to update a widget periodically at some interval, you can specify `android:updatePeriodMillis` attribute on the widget's metadata - AppWigetProviderInfo XML. 
+The Android documentation says that to update a widget periodically at some interval, you can specify `android:updatePeriodMillis` attribute on the widget's metadata - AppWidgetProviderInfo XML. 
 
 Unfortunately, despite setting this attribute in my app, widgets were still not updated reliably on some users' phones. 
  
@@ -76,7 +76,7 @@ One thing to note here - `MyAppWidgetProvider` is a subclass of the `AppWidgetPr
 
 **3. Define WorkRequest and schedule it**
 
-Now that we defined our work, it is necessary to specify **how and when** that work should be run. We do this by defining a `WorkRequest`. In our case, we simply want to run the work periodically at some interval.
+Now that we defined our work, it is necessary to specify **how** and **when** that work should be run. We do this by defining a `WorkRequest`. In our case, we simply want to run the work periodically at some interval.
 
 ```kotlin
 val widgetUpdateRequest = PeriodicWorkRequestBuilder<WidgetUpdateWorker>(
