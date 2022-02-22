@@ -6,7 +6,16 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Do not change the package name or class name of your AppWidgetProvider</title>
+      <link>https://arkadiuszchmura.com/posts/do-not-change-the-package-name-or-class-name-of-your-app-widget-provider/</link>
+      <pubDate>Tue, 22 Feb 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/do-not-change-the-package-name-or-class-name-of-your-app-widget-provider/</guid>
+      <description>If you do this, widgets that were placed on the home screen by your users will simply disappear.</description>
+    </item>
+    
     <item>
       <title>How to reliably update widgets on Android</title>
       <link>https://arkadiuszchmura.com/posts/how-to-reliably-update-widgets-on-android/</link>
