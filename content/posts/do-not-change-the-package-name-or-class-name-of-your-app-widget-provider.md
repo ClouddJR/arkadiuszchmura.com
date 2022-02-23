@@ -77,6 +77,6 @@ Unfortunately, there is currently no way to solve this problem as the code respo
 
 Honestly, in most cases, it won't be a huge deal. Even though users would have to place those widgets again on their home screen, everything will continue to work as previously. However, if the configuration of widgets in your app is complicated and time-consuming, this can cause a lot of frustration.
 
-## Conclusion
+## Summary
 
 Once you implement widgets in your app and release it, do not change the package name or class name of your class extending AppWidgetProvider. It will wipe out all of your user's existing widgets and possibly bring a flood of 1-star reviews for your app.

@@ -117,7 +117,7 @@ They give the following explanation for their decision:
 
 > However, we expect this inspection to be quite annoying in places where such time complexity does not that matter, so we plan to disabling it by default in the next version of Kotlin and leaving only an intention.
 
-### Conclusion
+## Summary
 
 To summarize, here are the key points from this post:
 

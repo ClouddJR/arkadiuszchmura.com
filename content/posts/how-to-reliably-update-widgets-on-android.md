@@ -110,7 +110,7 @@ As a side note, there are many benefits to using the WorkManager versus relying 
 
 After introducing WorkManager, the number of emails from my users about their widgets not being updated properly dropped significantly.
 
-## Conclusion
+## Summary
 
 To summarize, here are the key points from this post:
 
