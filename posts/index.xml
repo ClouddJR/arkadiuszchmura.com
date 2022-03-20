@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Feb 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 20 Mar 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>My key takeaways from The Pragmatic Programmer</title>
+      <link>https://arkadiuszchmura.com/posts/my-key-takeaways-from-the-pragmatic-programmer/</link>
+      <pubDate>Sun, 20 Mar 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/my-key-takeaways-from-the-pragmatic-programmer/</guid>
+      <description>In this blog post, I list things that resonate with me most after reading this book.</description>
+    </item>
+    
     <item>
       <title>Do not change the package name or class name of your AppWidgetProvider</title>
       <link>https://arkadiuszchmura.com/posts/do-not-change-the-package-name-or-class-name-of-your-app-widget-provider/</link>
