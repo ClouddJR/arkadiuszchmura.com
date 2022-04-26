@@ -3,12 +3,15 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://arkadiuszchmura.com/</loc>
-    <lastmod>2022-03-20T00:00:00+00:00</lastmod>
+    <lastmod>2022-04-26T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>https://arkadiuszchmura.com/posts/my-key-takeaways-from-the-pragmatic-programmer/</loc>
-    <lastmod>2022-03-20T00:00:00+00:00</lastmod>
+    <loc>https://arkadiuszchmura.com/posts/how-viewmodels-survive-configuration-changes/</loc>
+    <lastmod>2022-04-26T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arkadiuszchmura.com/posts/</loc>
+    <lastmod>2022-04-26T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>https://arkadiuszchmura.com/posts/my-key-takeaways-from-the-pragmatic-programmer/</loc>
     <lastmod>2022-03-20T00:00:00+00:00</lastmod>
   </url><url>
     <loc>https://arkadiuszchmura.com/posts/do-not-change-the-package-name-or-class-name-of-your-app-widget-provider/</loc>
