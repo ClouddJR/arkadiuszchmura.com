@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 26 Apr 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to display responsive images from Laravel-medialibrary in Vue.js</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-display-responsive-image-from-laravel-medialibrary-in-vue-js/</link>
+      <pubDate>Sun, 29 May 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-display-responsive-image-from-laravel-medialibrary-in-vue-js/</guid>
+      <description>It&amp;rsquo;s easy to do in a Blade file, but what about a Vue component?</description>
+    </item>
+    
     <item>
       <title>How ViewModels survive configuration changes</title>
       <link>https://arkadiuszchmura.com/posts/how-viewmodels-survive-configuration-changes/</link>
