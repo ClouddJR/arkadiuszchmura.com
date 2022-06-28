@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 29 May 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 28 Jun 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How Twitter handled personalized timelines for their users</title>
+      <link>https://arkadiuszchmura.com/posts/how-twitter-handled-personalized-timelines-for-their-users/</link>
+      <pubDate>Tue, 28 Jun 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-twitter-handled-personalized-timelines-for-their-users/</guid>
+      <description>The approach described here might be useful to you if your application has some sort of a personalized feed for each user.</description>
+    </item>
+    
     <item>
       <title>How to display responsive images from Laravel-medialibrary in Vue.js</title>
       <link>https://arkadiuszchmura.com/posts/how-to-display-responsive-image-from-laravel-medialibrary-in-vue-js/</link>
