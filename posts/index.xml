@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 31 Aug 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Sep 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to test intermediate steps in suspending functions</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-test-intermediate-steps-in-suspending-functions/</link>
+      <pubDate>Fri, 30 Sep 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-test-intermediate-steps-in-suspending-functions/</guid>
+      <description>Testing the final result of a suspending function is easy, but what about verifying what happens inside it during the execution?</description>
+    </item>
+    
     <item>
       <title>What is the difference between size and viewport size in vector drawables?</title>
       <link>https://arkadiuszchmura.com/posts/what-is-the-difference-between-size-and-viewport-size-in-vector-drawables/</link>
