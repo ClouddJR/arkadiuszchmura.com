@@ -209,7 +209,7 @@ class ViewModelTest {
 
 Notice that we don't even have to run our test body inside `runTest` anymore. That's because we are not calling any suspending functions here - `getTasks` is a regular function.
 
-## Conclusion
+## Summary
 
 I hope this post showed you how we can easily make our tests more powerful and controllable when we write code that uses coroutines. 
 
