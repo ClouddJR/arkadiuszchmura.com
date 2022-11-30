@@ -6,7 +6,16 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 31 Oct 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 30 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Managing dotfiles with GitHub</title>
+      <link>https://arkadiuszchmura.com/posts/managing-dotfiles-with-github/</link>
+      <pubDate>Wed, 30 Nov 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/managing-dotfiles-with-github/</guid>
+      <description>This post will describe how I store and manage my dotfiles in a repository on GitHub.</description>
+    </item>
+    
     <item>
       <title>How to draw content behind system bars in Jetpack Compose</title>
       <link>https://arkadiuszchmura.com/posts/how-to-draw-content-behind-system-bars-in-jetpack-compose/</link>
