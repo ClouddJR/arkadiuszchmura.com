@@ -27,7 +27,6 @@ chmod +x bootstrap
 ./bootstrap
 ```
 
-
 Then, I follow the instructions on the screen which will do the job for me:
 
 {{< figure 
@@ -45,7 +44,7 @@ As the name suggests, this step is responsible for bootstrapping my terminal, wh
 * **Installing oh-my-zsh**. My terminal of choice is [iTerm2](https://iterm2.com/). I'm using the [Z shell](https://en.wikipedia.org/wiki/Z_shell) with [oh-my-zsh](https://ohmyz.sh/). It has a lot of valuable functions, plugins, helpers, and more. I highly recommend this combination.
 * **Creating symbolic links for .zsrhc and .vimrc**. The latter contains a basic configuration for Vim. The former stores all the exports, aliases, and functions I frequently use when working on the shell. It also configures the theme ([robbyrussell](https://github.com/ohmyzsh/ohmyzsh/wiki/Themes#robbyrussell)) and specifies used plugins (in my case: git, adb, macos, and laravel). Usually, plugins will give you auto-completion for specific commands and some useful aliases. Check out the [Wiki](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins-Overview) for a complete list of plugins for oh-my-zsh. For example, here's what the auto-completion looks like for the adb plugin. As you can see, I can also navigate between suggested options using arrows, which is very convenient: 
   
-  {{< figure 
+{{< figure 
 align=center
 src="/dotfiles/adb.gif" 
 >}}
@@ -53,7 +52,7 @@ src="/dotfiles/adb.gif"
   Sometimes I want to export variables (or aliases and functions) that I wouldn't store in a public repository for security reasons. In that case, I can create a `.dotfiles-custom` folder that git does not track, and the `.zshrc` will also load everything from there.
 * **Activating [z.sh](https://github.com/rupa/z/)**. If you've never used it before, do yourself a favor and try it. It's a tremendously helpful and popular bash script for quick navigation between visited directories on your file system. For example, if you want to `cd` into a deeply nested directory (like `Development/Mobile/Android/MyProject`), you don't have to specify the entire path. It's enough to type `z project` to get there immediately (provided you have visited this directory before so that the script could save it in local history). It also works for sibling directories, as you can see below:
 
-  {{< figure 
+{{< figure 
 align=center
 src="/dotfiles/z.gif" 
 >}}
