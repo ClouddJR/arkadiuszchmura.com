@@ -6,7 +6,16 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 30 Nov 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 31 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Be careful when converting Flow to LiveData</title>
+      <link>https://arkadiuszchmura.com/posts/be-careful-when-converting-flow-to-livedata/</link>
+      <pubDate>Sat, 31 Dec 2022 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/be-careful-when-converting-flow-to-livedata/</guid>
+      <description>LiveData created this way will only emit data when it has active observers.</description>
+    </item>
+    
     <item>
       <title>Managing dotfiles with GitHub</title>
       <link>https://arkadiuszchmura.com/posts/managing-dotfiles-with-github/</link>
