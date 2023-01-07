@@ -33,6 +33,7 @@ params:
   disableScrollToTop: true
   hideFooter: true
   EnableImageZoom: true
+  comments: true
 
   homeInfoParams:
     Title: Hi! 👋

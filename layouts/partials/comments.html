@@ -1,0 +1,35 @@
+<script src="https://utteranc.es/client.js"
+        repo="ClouddJR/arkadiuszchmura.com"
+        issue-term="pathname"
+        label="comments"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<script>
+    function updateUtterancesTheme(isLight) {
+        const iframe = document.querySelector('.utterances-frame')
+        if (iframe) {
+            const message = {
+                type: 'set-theme',
+                theme: isLight ? 'github-light' : 'github-dark'
+            }
+            iframe.contentWindow.postMessage(message, 'https://utteranc.es')
+        }
+    }
+
+    // Set correct initial utterance theme
+    function handleMessageEvent(event) {
+        if (event.origin !== 'https://utteranc.es') return
+
+        const isLight = !document.body.classList.contains('dark')
+        updateUtterancesTheme(isLight)
+
+        removeEventListener('message', handleMessageEvent)
+    }
+
+    addEventListener('message', handleMessageEvent)
+
+    // Update utterances theme every time the theme is changed by a user
+    toggleThemeCallbacks['comments'] = updateUtterancesTheme
+</script>
