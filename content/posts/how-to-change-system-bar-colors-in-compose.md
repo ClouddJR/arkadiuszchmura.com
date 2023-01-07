@@ -99,7 +99,7 @@ Because it is a root composable in our app, we can use this place to specify the
 ```kotlin
 @Composable  
 fun BarColorsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composable () -> Unit) {  
-	// ...
+    // ...
     val view = LocalView.current  
     if (!view.isInEditMode) {  
         SideEffect {  
@@ -113,7 +113,7 @@ fun BarColorsTheme(darkTheme: Boolean = isSystemInDarkTheme(), content: @Composa
                 .isAppearanceLightNavigationBars = darkTheme  
         }  
     }  
-	// ...
+    // ...
 }
 ```
 

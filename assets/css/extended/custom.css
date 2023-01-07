@@ -1,3 +1,56 @@
 .first-entry {
     min-height: 0;
 }
+
+.first-entry .entry-header {
+    margin: unset;
+}
+
+.first-entry .entry-content p {
+    margin-bottom: unset;
+}
+
+.post-entry {
+    transition: transform 0.1s;
+}
+
+.post-entry:hover .entry-header h2 {
+    color: unset;
+    box-shadow: unset;
+}
+
+.post-entry:active {
+    transform: scale(0.96);
+}
+
+.post-content code {
+    font-size: 0.9rem;
+}
+
+.post-content a:hover code {
+    box-shadow: 0 -1px 0 var(--primary) inset;
+}
+
+.meta-item {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+}
+
+:root {
+    --monospace: 'JetBrains Mono', monospace;
+
+    --link-color: var(--primary);
+    --link-underline-shadow: 0 1px 0 var(--link-color);
+    --link-hover-color: var(--primary);
+    --link-hover-underline-color: var(--primary);
+    --link-hover-underline-shadow: 0 1px 0 var(--link-color);
+}
+
+.dark {
+    --link-color: var(--primary);
+    --link-underline-shadow: 0 1px 0 var(--link-color);
+    --link-hover-color: var(--primary);
+    --link-hover-underline-color: var(--primary);
+    --link-hover-underline-shadow: 0 1px 0 var(--link-color);
+}

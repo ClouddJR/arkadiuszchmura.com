@@ -3,6 +3,8 @@ title: My key takeaways from The Pragmatic Programmer
 date: 2022-03-20
 summary: In this blog post, I list things that resonate with me most after reading this book.
 showToc: true
+TocSide: 'left'
+TocOpen: true
 cover:
     image: "craft.jpg"
 ---
@@ -207,11 +209,11 @@ The authors present this snippet of code to demonstrate the problem:
 
 ```kotlin
 private fun applyDiscount(customer: Customer, orderId: Int, discount: Discount) {
-	customer
-		.orders
-		.find(orderId)
-		.getTotals()
-		.applyDiscount(discount)
+    customer
+        .orders
+        .find(orderId)
+        .getTotals()
+        .applyDiscount(discount)
 }
 ```
 
@@ -229,9 +231,9 @@ We could refactor the code above to something like this:
 
 ```kotlin
 private fun applyDiscount(customer: Customer, orderId: Int, discount: Discount) {
-	customer
-		.findOrder(orderId)
-		.applyDiscount(discount)
+    customer
+        .findOrder(orderId)
+        .applyDiscount(discount)
 }
 ```
 

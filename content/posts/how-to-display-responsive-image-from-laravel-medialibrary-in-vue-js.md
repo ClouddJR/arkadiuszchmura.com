@@ -58,10 +58,10 @@ class PostController extends Controller
     public function show(Post $post)
     {
         return [
-			'title' => $post->title,
-			'content' => $post->content,
-			'img' => $post->getFirstMedia()->toHtml()
-		];
+            'title' => $post->title,
+            'content' => $post->content,
+            'img' => $post->getFirstMedia()->toHtml()
+        ];
     }
 }
 ```
@@ -70,7 +70,7 @@ Then, inside your Vue component, output the image using the `v-html` directive b
 
 ```vue
 <template>
-	<div v-html="img"></div>
+    <div v-html="img"></div>
 </template>
 ```
 

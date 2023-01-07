@@ -65,10 +65,10 @@ Interestingly, developers working on the Firefox app faced the same problem. If 
 
 ```kotlin
 class SearchWidgetProvider : AppWidgetProvider() {
-	// Implementation note:
-	// This class name (SearchWidgetProvider) and package name (org.mozilla.gecko.search) should
-	// not be changed because otherwise this widget will disappear from the home screen of the user.
-	// The existing name replicates the name and package we used in Fennec.
+    // Implementation note:
+    // This class name (SearchWidgetProvider) and package name (org.mozilla.gecko.search) should
+    // not be changed because otherwise this widget will disappear from the home screen of the user.
+    // The existing name replicates the name and package we used in Fennec.
 ```
 
 ## Solution?

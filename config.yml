@@ -1,8 +1,8 @@
 baseURL: https://arkadiuszchmura.com/
 languageCode: en-us
 title: Arkadiusz Chmura
-theme: PaperMod
-paginate: 10
+theme: PaperModX
+paginate: 30
 
 enableInlineShortcodes: true
 enableRobotsTXT: true
@@ -31,6 +31,8 @@ params:
   showBreadCrumbs: true
   showCodeCopyButtons: true
   disableScrollToTop: true
+  hideFooter: true
+  EnableImageZoom: true
 
   homeInfoParams:
     Title: Hi! 👋
@@ -58,9 +60,6 @@ params:
     hidden: true
     hiddenInSingle: false
 
-  assets:
-    disableHLJS: true
-
 menu:
   main:
     - name: Archive
@@ -73,4 +72,4 @@ markup:
     renderer:
       unsafe: true
   highlight:
-    style: dracula
+    noClasses: false

@@ -153,13 +153,13 @@ private lateinit var testScheduler: TestCoroutineScheduler
 
 @Before  
 fun setUp() {  
-	testScheduler = TestCoroutineScheduler()  
-	Dispatchers.setMain(StandardTestDispatcher(testScheduler))  
+    testScheduler = TestCoroutineScheduler()  
+    Dispatchers.setMain(StandardTestDispatcher(testScheduler))  
 }  
 
 @After  
 fun tearDown() {  
-	Dispatchers.resetMain()  
+    Dispatchers.resetMain()  
 }  
 ```
 

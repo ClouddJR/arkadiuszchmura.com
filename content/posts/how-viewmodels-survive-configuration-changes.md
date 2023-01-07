@@ -38,11 +38,11 @@ Here is what the `viewModels()` function looks like:
 public inline fun <reified VM : ViewModel> ComponentActivity.viewModels(  
     noinline factoryProducer: (() -> Factory)? = null  
 ): Lazy<VM> {  
-    val factoryPromise = factoryProducer ?: {  
- 		defaultViewModelProviderFactory  
-	}  
+    val factoryPromise = factoryProducer ?: {
+        defaultViewModelProviderFactory  
+    }  
   
-	return ViewModelLazy(VM::class, { viewModelStore }, factoryPromise)  
+    return ViewModelLazy(VM::class, { viewModelStore }, factoryPromise)  
 }
 ```
 
@@ -58,12 +58,12 @@ As you can see, the `viewModels()` function is an extension function on the `Com
 
 ```java
 public ViewModelStore getViewModelStore() {
-	if (getApplication() == null) {
-		throw new IllegalStateException("Your activity is not yet attached to the "
-				+ "Application instance. You can't request ViewModel before onCreate call.");
-	}
-	ensureViewModelStore();
-	return mViewModelStore;
+    if (getApplication() == null) {
+        throw new IllegalStateException("Your activity is not yet attached to the "
+                + "Application instance. You can't request ViewModel before onCreate call.");
+    }
+    ensureViewModelStore();
+    return mViewModelStore;
 }
 ```
 
@@ -186,9 +186,9 @@ Here's the `get()` method:
 
 ```kotlin
 public open operator fun <T : ViewModel> get(modelClass: Class<T>): T {
-	val canonicalName = modelClass.canonicalName
-		?: throw IllegalArgumentException("Local and anonymous classes can not be ViewModels")
-	return get("$DEFAULT_KEY:$canonicalName", modelClass)
+    val canonicalName = modelClass.canonicalName
+        ?: throw IllegalArgumentException("Local and anonymous classes can not be ViewModels")
+    return get("$DEFAULT_KEY:$canonicalName", modelClass)
 }
 ```
 
@@ -203,23 +203,23 @@ Here's the second `get()` method:
 
 ```kotlin
 public open operator fun <T : ViewModel> get(key: String, modelClass: Class<T>): T {
-	var viewModel = store[key]
-	if (modelClass.isInstance(viewModel)) {
-		(factory as? OnRequeryFactory)?.onRequery(viewModel)
-		return viewModel as T
-	} else {
-		@Suppress("ControlFlowWithEmptyBody")
-		if (viewModel != null) {
-			// TODO: log a warning.
-		}
-	}
-	viewModel = if (factory is KeyedFactory) {
-		factory.create(key, modelClass)
-	} else {
-		factory.create(modelClass)
-	}
-	store.put(key, viewModel)
-	return viewModel
+    var viewModel = store[key]
+    if (modelClass.isInstance(viewModel)) {
+        (factory as? OnRequeryFactory)?.onRequery(viewModel)
+        return viewModel as T
+    } else {
+        @Suppress("ControlFlowWithEmptyBody")
+        if (viewModel != null) {
+            // TODO: log a warning.
+        }
+    }
+    viewModel = if (factory is KeyedFactory) {
+        factory.create(key, modelClass)
+    } else {
+        factory.create(modelClass)
+    }
+    store.put(key, viewModel)
+    return viewModel
 }
 ```
 
@@ -250,12 +250,12 @@ As a refresher, here's the `getViewModelStore()` method:
 
 ```java
 public ViewModelStore getViewModelStore() {
-	if (getApplication() == null) {
-		throw new IllegalStateException("Your activity is not yet attached to the "
-				+ "Application instance. You can't request ViewModel before onCreate call.");
-	}
-	ensureViewModelStore();
-	return mViewModelStore;
+    if (getApplication() == null) {
+        throw new IllegalStateException("Your activity is not yet attached to the "
+                + "Application instance. You can't request ViewModel before onCreate call.");
+    }
+    ensureViewModelStore();
+    return mViewModelStore;
 }
 ```
 
@@ -263,17 +263,17 @@ and this is the `ensureViewModelStore()`:
 
 ```java
 void ensureViewModelStore() {
-	if (mViewModelStore == null) {
-		NonConfigurationInstances nc =
-				(NonConfigurationInstances) getLastNonConfigurationInstance();
-		if (nc != null) {
-			// Restore the ViewModelStore from NonConfigurationInstances
-			mViewModelStore = nc.viewModelStore;
-		}
-		if (mViewModelStore == null) {
-			mViewModelStore = new ViewModelStore();
-		}
-	}
+    if (mViewModelStore == null) {
+        NonConfigurationInstances nc =
+                (NonConfigurationInstances) getLastNonConfigurationInstance();
+        if (nc != null) {
+            // Restore the ViewModelStore from NonConfigurationInstances
+            mViewModelStore = nc.viewModelStore;
+        }
+        if (mViewModelStore == null) {
+            mViewModelStore = new ViewModelStore();
+        }
+    }
 }
 ```
 
@@ -302,12 +302,12 @@ And this is what the method looks like in the `ComponentActivity`:
 
 ```java
 public final Object onRetainNonConfigurationInstance() {
-	// Skipping the irrelevant parts...
+    // Skipping the irrelevant parts...
 	
-	NonConfigurationInstances nci = new NonConfigurationInstances();
-	nci.custom = custom;
-	nci.viewModelStore = viewModelStore;
-	return nci;
+    NonConfigurationInstances nci = new NonConfigurationInstances();
+    nci.custom = custom;
+    nci.viewModelStore = viewModelStore;
+    return nci;
 }
 ```
 

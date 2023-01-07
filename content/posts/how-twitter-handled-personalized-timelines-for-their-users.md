@@ -46,14 +46,14 @@ Then, to get all the relevant tweets to assemble a user's timeline, the SQL quer
 
 ```sql
 SELECT
-	tweets.*,
-	users.*
+    tweets.*,
+    users.*
 FROM
-	tweets
-	JOIN users ON tweets.user_id = users.id
-	JOIN follows ON follows.followee_id = users.id
+    tweets
+    JOIN users ON tweets.user_id = users.id
+    JOIN follows ON follows.followee_id = users.id
 WHERE
-	follows.follower_id = CURRENT_USER
+    follows.follower_id = CURRENT_USER
 ```
 
 The biggest problem here is that we have to execute the above query every time we want to display a timeline for any user. It's not hard to imagine the huge amount of work required when there are a lot of users on the platform with a substantial number of people they follow frequently accessing the website.

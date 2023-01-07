@@ -59,7 +59,7 @@ Let's imagine we want to schedule the update as soon as our activity is created.
 ```kotlin
 // MainViewModel
 fun init() {
-	// update() is suspending, so we launch a new coroutine here
+    // update() is suspending, so we launch a new coroutine here
     viewModelScope.launch {  
         repository.update()
     }  
