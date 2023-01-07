@@ -27,7 +27,7 @@
     box-shadow: 0 -1px 0 var(--primary) inset;
 }
 
-code {
+.post-content code {
     font-size: 0.9rem;
     text-size-adjust: 100%;
     -ms-text-size-adjust: 100%;
