@@ -41,6 +41,10 @@
     gap: 0.25rem;
 }
 
+.medium-zoom-overlay {
+    background: var(--theme) !important;
+}
+
 :root {
     --monospace: 'JetBrains Mono', monospace;
 
