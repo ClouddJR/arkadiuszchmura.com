@@ -45,6 +45,10 @@
     background: var(--theme) !important;
 }
 
+.medium-zoom-image--opened {
+    border-radius: 0.25rem;
+}
+
 :root {
     --monospace: 'JetBrains Mono', monospace;
 
