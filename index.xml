@@ -6,7 +6,40 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 31 Dec 2022 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 20 Jan 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to fix the missing JDK problem on Electric Eel</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-fix-the-missing-jdk-problem-on-electric-eel/</link>
+      <pubDate>Fri, 20 Jan 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-fix-the-missing-jdk-problem-on-electric-eel/</guid>
+      <description>When updating Android Studio to Electric Eel, the location of the embedded JDK is changing.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>When updating your Android Studio to the newest Electric Eel version, the location of the embedded JDK is changed. In particular, it changes from:</p>
+<p><code>/Applications/Android Studio.app/Contents/jre/Contents/Home</code></p>
+<p>to</p>
+<p><code>/Applications/Android Studio.app/Contents/jbr/Contents/Home</code></p>
+<p>This might cause some problems with building your projects right after the update.</p>
+<h2 id="solution">Solution</h2>
+<p>First, make sure the JDK is correctly specified for your project. Go to <code>Preferences</code> -&gt; <code>Build, Execution, Deployment</code> -&gt; <code>Build Tools</code> -&gt; <code>Gradle</code> and set the Gradle JDK to the correct one (if it didn&rsquo;t happen automatically):</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/jdk.png#center"
+         alt="Specifying JDK location in Preferences"/> <figcaption>
+            <p>Specifying JDK location in Preferences</p>
+        </figcaption>
+</figure>
+
+<p>Additionally, if your <code>JAVA_HOME</code> environment variable still points to the old location (as it was in my case), you will also have to update it.</p>
+<blockquote>
+<p>You can verify it by running <code>echo $JAVA_HOME</code> in your terminal. If it points to a completely different location, that&rsquo;s fine, you don&rsquo;t have to change that. It means you are using different JDKs in Android Studio and your terminal. However, I recommend using the same JDK everywhere to avoid problems with cache or running multiple Gradle daemons.</p>
+</blockquote>
+<p>To update it, go to your <code>~/.zshrc</code> or <code>~/.bashrc</code> (or any other place where you define your variables) and make sure you have this line there:</p>
+<p><code>export JAVA_HOME=&quot;/Applications/Android Studio.app/Contents/jbr/Contents/Home&quot;</code></p>
+<h2 id="summary">Summary</h2>
+<p>I hope this post helped you solve your problem. I wish the JDK location change had been signaled more clearly after the update so that we wouldn&rsquo;t have to spend time investigating all the issues ourselves.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Be careful when converting Flow to LiveData</title>
       <link>https://arkadiuszchmura.com/posts/be-careful-when-converting-flow-to-livedata/</link>
