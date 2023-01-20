@@ -1,5 +1,5 @@
 ---
-title: "How to fix the missing JDK problem on Electric Eel"
+title: "How to fix the invalid JDK problem on Electric Eel"
 date: 2023-01-20
 summary: When updating Android Studio to Electric Eel, the location of the embedded JDK is changing.
 ---
