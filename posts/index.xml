@@ -6,7 +6,88 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Feb 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to create factories for models with polymorphic relationships in Laravel</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-create-factories-for-models-with-polymorphic-relationships-in-laravel/</link>
+      <pubDate>Wed, 29 Mar 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-create-factories-for-models-with-polymorphic-relationships-in-laravel/</guid>
+      <description>Factories for these models are a bit trickier to implement than the standard ones.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>In this post, I will show you how to create factories for models that have polymorphic relationships with other models in your app.</p>
+<p>This post assumes that you are familiar with polymorphic relationships. If that&rsquo;s not true, head to <a href="https://laravel.com/docs/10.x/eloquent-relationships#polymorphic-relationships">the documentation</a> to learn more.</p>
+<h2 id="solution">Solution</h2>
+<p>As an example, let&rsquo;s consider an app where we allow users to rate games or movies. For that, we define two Eloquent models - <code>Game</code> and <code>Movie</code>. Additionally, to avoid repetition, we use a single <code>Rating</code> model for both entities.</p>
+<p>A simplified database structure for our app could look like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">games</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span> <span class="o">-</span> <span class="nx">integer</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="o">-</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nx">movies</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span> <span class="o">-</span> <span class="nx">integer</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="o">-</span> <span class="nx">string</span>
+</span></span><span class="line"><span class="cl"> 
+</span></span><span class="line"><span class="cl"><span class="nx">ratings</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">id</span> <span class="o">-</span> <span class="nx">integer</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rating</span> <span class="o">-</span> <span class="nx">integer</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rateable_id</span> <span class="o">-</span> <span class="nx">integer</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">rateable_type</span> <span class="o">-</span> <span class="nx">string</span>
+</span></span></code></pre></div><p>Now, let&rsquo;s move on to factories. For both <code>Game</code> and <code>Movie</code>, it would be a simple, regular factory. Something like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">GameFactory</span> <span class="k">extends</span> <span class="nx">Factory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">definition</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;name&#39;</span> <span class="o">=&gt;</span> <span class="nx">fake</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">word</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>I&rsquo;m only showing the code for the <code>GameFactory</code>, as the <code>MovieFactory</code> would look almost identical.</p>
+<p>The factory for our <code>Rating</code> model is going to be a bit more complicated, and we could define it like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">RatingFactory</span> <span class="k">extends</span> <span class="nx">Factory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">public</span> <span class="k">function</span> <span class="nf">definition</span><span class="p">()</span><span class="o">:</span> <span class="k">array</span>
+</span></span><span class="line"><span class="cl">    <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;rateable_id&#39;</span> <span class="o">=&gt;</span> <span class="nx">Game</span><span class="o">::</span><span class="na">factory</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;rateable_type&#39;</span> <span class="o">=&gt;</span> <span class="k">function</span> <span class="p">(</span><span class="k">array</span> <span class="nv">$attributes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">Game</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">[</span><span class="s1">&#39;rateable_id&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">getMorphClass</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>It&rsquo;s a typical pattern to assign a new factory instance to the foreign key of the relationship (hence the <code>'rateable_id' =&gt; Game::factory()</code>). Thanks to this, when we create a new <code>Rating</code> using the factory, a new <code>Game</code> instance will be automatically created for us.</p>
+<p>The <code>rateable_type</code> attribute is more interesting. Potentially, we could hardcode the value to <code>App\Models\Game</code>, and it would work just fine because, by default, Laravel uses the fully qualified class name to store the &ldquo;type&rdquo; of the related model. However, I like to decouple my app internals from the database and usually change these values.</p>
+<p>To do that, you can use the following code (placed in the <code>boot</code> method of one of your service providers) to store simple strings as the &ldquo;type&rdquo; in the database:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="nx">Relation</span><span class="o">::</span><span class="na">enforceMorphMap</span><span class="p">([</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;game&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;App\Models\Game&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="s1">&#39;movie&#39;</span> <span class="o">=&gt;</span> <span class="s1">&#39;App\Models\Movie&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl"><span class="p">]);</span>
+</span></span></code></pre></div><p>But after that change, we must provide correct values to our <code>RatingFactory</code>. That&rsquo;s precisely why we we used the <code>getMorphClass()</code> on the model instance. It allows us to get the valid morph alias at runtime.</p>
+<p>Also, we used a closure to access other attributes defined in the factory (in particular, the <code>rateable_id</code>) to find the newly created <code>Game</code> model on which we call the <code>getMorphClass()</code> method.</p>
+<p>To use the factory and create a new <code>Rating</code>, we can now call <code>Rating::factory()-&gt;create()</code>.</p>
+<p>Notice that when we use this factory, by default, it will associate the new <code>Rating</code> model with a new <code>Game</code>. What if we would like to use a <code>Movie</code> model instead (or any other that might be added in the future)?</p>
+<p>To do that, we could leverage <a href="https://laravel.com/docs/10.x/eloquent-factories#factory-states">factory states</a>. We can define a method called <code>forMovie</code> in our factory that will only modify the <code>rateable_id</code> and <code>rateable_type</code> attributes accordingly (leaving the remaining ones untouched):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-php" data-lang="php"><span class="line"><span class="cl"><span class="k">public</span> <span class="k">function</span> <span class="nf">forMovie</span><span class="p">()</span><span class="o">:</span> <span class="nx">Factory</span>
+</span></span><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">state</span><span class="p">(</span><span class="k">function</span> <span class="p">(</span><span class="k">array</span> <span class="nv">$attributes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;rateable_id&#39;</span> <span class="o">=&gt;</span> <span class="nx">Movie</span><span class="o">::</span><span class="na">factory</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="s1">&#39;rateable_type&#39;</span> <span class="o">=&gt;</span> <span class="k">function</span> <span class="p">(</span><span class="k">array</span> <span class="nv">$attributes</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="k">return</span> <span class="nx">Movie</span><span class="o">::</span><span class="na">find</span><span class="p">(</span><span class="nv">$attributes</span><span class="p">[</span><span class="s1">&#39;rateable_id&#39;</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">getMorphClass</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">];</span>
+</span></span><span class="line"><span class="cl">    <span class="p">});</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>Then, you can create a new <code>Rating</code> associated with a <code>Movie</code> by calling <code>Rating::factory()-&gt;forMovie()-&gt;create()</code>.</p>
+<p>Similarly, you could define a separate method for any other model related to <code>Rating</code> that you might add in the future.</p>
+<h2 id="summary">Summary</h2>
+<p>In summary, creating factories for models with polymorphic relationships in Laravel can be a bit trickier than the standard ones. However, by following the steps outlined in this post, I hope you won&rsquo;t have any problems with that.</p>
+<p>If you have any questions, feel free to leave a comment here or reach out to me on <a href="https://twitter.com/ClouddJR/">Twitter</a>.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Inline functions in Kotlin</title>
       <link>https://arkadiuszchmura.com/posts/inline-functions-in-kotlin/</link>
