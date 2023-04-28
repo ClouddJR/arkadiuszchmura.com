@@ -6,7 +6,202 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 29 Mar 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 28 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to make expandable text with a button in Jetpack Compose</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-make-expandable-text-with-a-button-in-jetpack-compose/</link>
+      <pubDate>Fri, 28 Apr 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-make-expandable-text-with-a-button-in-jetpack-compose/</guid>
+      <description>In this post I will show you how to make an expandable text controlled by a button using Jetpack Compose.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>In this post, I will show you how to make an expandable text that is controlled by a button below it using Jetpack Compose. Additionally, we&rsquo;ll introduce some simple animations to make the text state changes a bit nicer and add an ellipsis at the end of the text to indicate that it has overflowed.</p>
+<p>That&rsquo;s the final result we&rsquo;ll be implementing:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/expandable/final.gif#center" width="350"/> 
+</figure>
+
+<h2 id="solution">Solution</h2>
+<p>Let&rsquo;s start with the following snippet and build on top of it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">?)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">.</span><span class="n">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">setContent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">MyAppTheme</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Surface</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">fillMaxSize</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">color</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">colorScheme</span><span class="p">.</span><span class="n">background</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ExpandableText</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span></code></pre></div><p>You get that snippet after creating a new project using Android Studio’s project wizard. The only change I introduced is that I added the <code>ExpandableText</code> composable that we&rsquo;ll be building.</p>
+<p>First, let&rsquo;s add a <code>Text</code> and <code>TextButton</code> composables (wrapped in a <code>Column</code>) inside our new <code>ExpandableText</code> composable:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Column</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Hello World! &#34;</span><span class="p">.</span><span class="n">repeat</span><span class="p">(</span><span class="m">50</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">maxLines</span> <span class="p">=</span> <span class="m">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">overflow</span> <span class="p">=</span> <span class="nc">TextOverflow</span><span class="p">.</span><span class="n">Ellipsis</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">TextButton</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">onClick</span> <span class="p">=</span> <span class="p">{</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">            <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">fillMaxWidth</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">shape</span> <span class="p">=</span> <span class="n">RectangleShape</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Expand&#34;</span><span class="p">.</span><span class="n">uppercase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>I am passing a modifier as a parameter to the <code>ExpandableText</code> to be able to control it from the outside.</p>
+<p>Inside, I am setting the text to &ldquo;Hello World! &quot; repeated 50 times to make sure it overflows. Also, I&rsquo;m limiting the number of lines to 5 and passing <code>TextOverflow.Ellipsis</code> to the <code>overflow</code> parameter to use an ellipsis when the text overflows (by default, it just clips the text).</p>
+<p>The <code>TextButton</code> below is set to fill the entire width and has a <code>RectangleShape</code> because it looks more appropriate in this case than the default, rounded shape.</p>
+<p>This is what we have so far:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/expandable/overflow.png#center" width="350"/> 
+</figure>
+
+<p>Next, let&rsquo;s implement the <code>onClick</code> for our <code>TextButton</code>. When clicking, we want to remove the limit of 5 lines for the text (so that it expands) and change the text for the button from &ldquo;Expand&rdquo; to &ldquo;Collapse&rdquo;.</p>
+<p>For that, we will introduce a mutable state variable called <code>isExpanded</code> that will be toggled inside the <code>onClick</code> and control the parameters mentioned above like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">isExpanded</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="k">false</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">maxLines</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">isExpanded</span><span class="p">)</span> <span class="nc">Int</span><span class="p">.</span><span class="n">MAX_VALUE</span> <span class="k">else</span> <span class="m">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">TextButton</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">onClick</span> <span class="p">=</span> <span class="p">{</span> <span class="n">isExpanded</span> <span class="p">=</span> <span class="o">!is</span><span class="n">Expanded</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="p">=</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">isExpanded</span><span class="p">)</span> <span class="s2">&#34;Collapse&#34;</span> <span class="k">else</span> <span class="s2">&#34;Expand&#34;</span><span class="p">).</span><span class="n">uppercase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>After those changes, expanding and collapsing works properly:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/expandable/no_animation.gif#center" width="350"/> 
+</figure>
+
+<p>But there is one problem with our implementation. What happens when the text is shorter than 5 lines?</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/expandable/short.png#center" width="350"/> 
+</figure>
+
+<p>We don&rsquo;t want to show the button when the text has not overflowed. To solve this, we need to find a way to be notified when the overflow happens and store it as a state.</p>
+<p>Luckily, with Compose, it&rsquo;s easy to do. The <code>Text</code> composable exposes a <code>onTextLayout</code> parameter which is a callback that is executed when a new text layout is calculated. That callback will receive a <code>TextLayoutResult</code> object, from which we will be able to get all the necessary information:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">textLayoutResult</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">&lt;</span><span class="n">TextLayoutResult</span><span class="p">?&gt;(</span><span class="k">null</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">isExpandable</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">derivedStateOf</span> <span class="p">{</span> <span class="n">textLayoutResult</span><span class="o">?.</span><span class="n">didOverflowHeight</span> <span class="o">?:</span> <span class="k">false</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">onTextLayout</span> <span class="p">=</span> <span class="p">{</span> <span class="n">textLayoutResult</span> <span class="p">=</span> <span class="k">it</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>We pass a lambda to the <code>onTextLayout</code> parameter, which will save a new <code>TextLayoutResult</code> object every time it changes into our <code>textLayoutResult</code> state.</p>
+<p>Additionally, we define a derived state called <code>isExpandable</code> that will be recalculated every time the <code>textLayoutResult?.didOverflowHeight</code> changes. When it returns true, it means the text occupies more than 5 lines.</p>
+<blockquote>
+<p>We used derived state here because the <code>isExpandable</code> is never modified on its own. This state is always calculated based on the value of the <code>textLayoutResult</code> state. To learn more about derived states, <a href="https://developer.android.com/jetpack/compose/side-effects#derivedstateof">check the documentation</a>.</p>
+</blockquote>
+<p>Now, since we know when the text overflows, we can add another derived state that will control the visibility of the button:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">isButtonShown</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">derivedStateOf</span> <span class="p">{</span> <span class="n">isExpandable</span> <span class="o">||</span> <span class="n">isExpanded</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">if</span> <span class="p">(</span><span class="n">isButtonShown</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">TextButton</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>This logic basically means that we only want to show the button when the text has overflowed (to be able to expand it) or when it&rsquo;s already expanded (to be able to collapse it).</p>
+<p>Finally, the only thing that&rsquo;s missing is the animation, which we can add using a single modifier on our <code>Text</code> - <code>animateContentSize()</code>:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">animateContentSize</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>And with that change, we get the desired effect after running the app!</p>
+<p>Here&rsquo;s the full code:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-kotlin" data-lang="kotlin"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">MainActivity</span> <span class="p">:</span> <span class="n">ComponentActivity</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">override</span> <span class="k">fun</span> <span class="nf">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">:</span> <span class="n">Bundle</span><span class="p">?)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">super</span><span class="p">.</span><span class="n">onCreate</span><span class="p">(</span><span class="n">savedInstanceState</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">setContent</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">ExpandableTextTheme</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Surface</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">fillMaxSize</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">color</span> <span class="p">=</span> <span class="nc">MaterialTheme</span><span class="p">.</span><span class="n">colorScheme</span><span class="p">.</span><span class="n">background</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">ExpandableText</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                        <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">padding</span><span class="p">(</span><span class="m">16.</span><span class="n">dp</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">                <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nd">@Composable</span>
+</span></span><span class="line"><span class="cl"><span class="k">private</span> <span class="k">fun</span> <span class="nf">ExpandableText</span><span class="p">(</span><span class="n">modifier</span><span class="p">:</span> <span class="n">Modifier</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">textLayoutResult</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">&lt;</span><span class="n">TextLayoutResult</span><span class="p">?&gt;(</span><span class="k">null</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">isExpandable</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">derivedStateOf</span> <span class="p">{</span> <span class="n">textLayoutResult</span><span class="o">?.</span><span class="n">didOverflowHeight</span> <span class="o">?:</span> <span class="k">false</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">var</span> <span class="py">isExpanded</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">mutableStateOf</span><span class="p">(</span><span class="k">false</span><span class="p">)</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">val</span> <span class="py">isButtonShown</span> <span class="k">by</span> <span class="n">remember</span> <span class="p">{</span> <span class="n">derivedStateOf</span> <span class="p">{</span> <span class="n">isExpandable</span> <span class="o">||</span> <span class="n">isExpanded</span> <span class="p">}</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Column</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="n">modifier</span> <span class="p">=</span> <span class="n">modifier</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">text</span> <span class="p">=</span> <span class="s2">&#34;Hello World! &#34;</span><span class="p">.</span><span class="n">repeat</span><span class="p">(</span><span class="m">50</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">animateContentSize</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">            <span class="n">maxLines</span> <span class="p">=</span> <span class="k">if</span> <span class="p">(</span><span class="n">isExpanded</span><span class="p">)</span> <span class="nc">Int</span><span class="p">.</span><span class="n">MAX_VALUE</span> <span class="k">else</span> <span class="m">5</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">overflow</span> <span class="p">=</span> <span class="nc">TextOverflow</span><span class="p">.</span><span class="n">Ellipsis</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">            <span class="n">onTextLayout</span> <span class="p">=</span> <span class="p">{</span> <span class="n">textLayoutResult</span> <span class="p">=</span> <span class="k">it</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="n">isButtonShown</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">TextButton</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                <span class="n">onClick</span> <span class="p">=</span> <span class="p">{</span> <span class="n">isExpanded</span> <span class="p">=</span> <span class="o">!is</span><span class="n">Expanded</span> <span class="p">},</span>
+</span></span><span class="line"><span class="cl">                <span class="n">modifier</span> <span class="p">=</span> <span class="nc">Modifier</span><span class="p">.</span><span class="n">fillMaxWidth</span><span class="p">(),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">shape</span> <span class="p">=</span> <span class="n">RectangleShape</span>
+</span></span><span class="line"><span class="cl">            <span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">Text</span><span class="p">(</span>
+</span></span><span class="line"><span class="cl">                    <span class="n">text</span> <span class="p">=</span> <span class="p">(</span><span class="k">if</span> <span class="p">(</span><span class="n">isExpanded</span><span class="p">)</span> <span class="s2">&#34;Collapse&#34;</span> <span class="k">else</span> <span class="s2">&#34;Expand&#34;</span><span class="p">).</span><span class="n">uppercase</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">                <span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h2 id="summary">Summary</h2>
+<p>That&rsquo;s it for this post. I hope you found it helpful and learned something from it. If you have any questions, feel free to leave a comment here or reach out to me on <a href="https://twitter.com/ClouddJR/">Twitter</a>.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>How to create factories for models with polymorphic relationships in Laravel</title>
       <link>https://arkadiuszchmura.com/posts/how-to-create-factories-for-models-with-polymorphic-relationships-in-laravel/</link>
