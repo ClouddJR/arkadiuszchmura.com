@@ -6,7 +6,75 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 28 Apr 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to setup comments on your static blog</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-setup-comments-on-your-static-blog/</link>
+      <pubDate>Tue, 30 May 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-setup-comments-on-your-static-blog/</guid>
+      <description>With a tool called utterances, it&amp;rsquo;s very easy to add comments to your website with minimal code and no need for a database.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>In this post, I&rsquo;ll show you how to setup comments on your static blog with a tool called <a href="https://utteranc.es/">utterances</a>. It&rsquo;s a lightweight, free, and open-source comments widget built on GitHub issues.</p>
+<p>You can see what this tool looks like by scrolling to the bottom of the page where the comments section is.</p>
+<p>The idea is simple. Every post on your blog will have a dedicated issue on your chosen GitHub repository. Then, every comment on your post will essentially become a comment on that issue. As a result, you won&rsquo;t need dedicated storage for these comments. Everything will be stored in your repository.</p>
+<p>The only downside is that this way of adding comments requires users to have a GitHub account. If you have a technical blog or a website, that shouldn&rsquo;t be a problem since the majority of your audience is familiar with this tool. However, if that&rsquo;s not the case, you might want to look for something simpler.</p>
+<p>My blog is built with <a href="https://gohugo.io/">Hugo</a> and a theme called <a href="https://github.com/reorx/hugo-PaperModX">PaperModX</a>, and that&rsquo;s what I&rsquo;ll be showing here. However, given how easy the integration is, you shouldn&rsquo;t have any problems with it when using different tools.</p>
+<h2 id="integration">Integration</h2>
+<p>Integration with utterances is relatively simple. You have to go to <a href="https://utteranc.es/">their website</a> and follow a couple of steps mentioned in the configuration section.</p>
+<p>First, you choose a repository where you want to store your comments (and add the utterances app to it). Next, you select some options, like how you want to map your posts to issue titles or which theme you want to use on the widget. Lastly, you are given a code snippet containing a script tag that you have to add to your blog&rsquo;s template and position it where you want your comments to appear.</p>
+<p>In the case of my blog, I had to add <code>comments: true</code> to my <code>config.yaml</code> file and then create the <code>layouts/partials/comments.html</code> file containing the generated script tag:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span> <span class="na">src</span><span class="o">=</span><span class="s">&#34;https://utteranc.es/client.js&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">repo</span><span class="o">=</span><span class="s">&#34;ClouddJR/arkadiuszchmura.com&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">issue-term</span><span class="o">=</span><span class="s">&#34;pathname&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">label</span><span class="o">=</span><span class="s">&#34;comments&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">theme</span><span class="o">=</span><span class="s">&#34;github-light&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">crossorigin</span><span class="o">=</span><span class="s">&#34;anonymous&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="na">async</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><blockquote>
+<p>Notice how the options you selected in the configuration step match the attributes on the script tag.</p>
+</blockquote>
+<h3 id="dark-mode">Dark mode</h3>
+<p>That&rsquo;s pretty much it when it comes to the integration. If you&rsquo;ve configured everything correctly, you should have a working system for adding comments to your website.</p>
+<p>However, you might have noticed that my blog supports a dark mode that you can toggle by clicking on the icon at the top of the page. With the current configuration in the script tag, the theme used by the utterances widget will always be <code>github-light</code>, even when using dark mode on the website.</p>
+<p>This definitely doesn&rsquo;t provide the best user experience, so I decided to find a way to set the correct initial theme when loading the page and also change the theme every time the user toggles it on the website.</p>
+<p>This is the code that I ultimately used (I placed it right below the script tag for the utterances widget):</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-html" data-lang="html"><span class="line"><span class="cl"><span class="p">&lt;</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">updateUtterancesTheme</span><span class="p">(</span><span class="nx">isLight</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kr">const</span> <span class="nx">iframe</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">querySelector</span><span class="p">(</span><span class="s1">&#39;.utterances-frame&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="p">(</span><span class="nx">iframe</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">const</span> <span class="nx">message</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;set-theme&#39;</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">theme</span><span class="o">:</span> <span class="nx">isLight</span> <span class="o">?</span> <span class="s1">&#39;github-light&#39;</span> <span class="o">:</span> <span class="s1">&#39;github-dark&#39;</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">iframe</span><span class="p">.</span><span class="nx">contentWindow</span><span class="p">.</span><span class="nx">postMessage</span><span class="p">(</span><span class="nx">message</span><span class="p">,</span> <span class="s1">&#39;https://utteranc.es&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">&lt;/</span><span class="nt">script</span><span class="p">&gt;</span>
+</span></span></code></pre></div><p>The above is the function (credit goes to <a href="https://github.com/utterance/utterances/issues/549#issuecomment-907606127">this person</a>) for updating the theme used by the utterances widget. If the passed <code>isLight</code> variable is true, we&rsquo;ll use the <code>github-light</code> theme. Otherwise, it&rsquo;s going to be <code>github-dark</code>.</p>
+<p>I wanted to execute this function as soon as the page loads and right before the utterances <code>iframe</code> makes a request. Here&rsquo;s one way of doing it:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// Set correct initial utterance theme
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">handleMessageEvent</span><span class="p">(</span><span class="nx">event</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="p">(</span><span class="nx">event</span><span class="p">.</span><span class="nx">origin</span> <span class="o">!==</span> <span class="s1">&#39;https://utteranc.es&#39;</span><span class="p">)</span> <span class="k">return</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">const</span> <span class="nx">isLight</span> <span class="o">=</span> <span class="o">!</span><span class="nb">document</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">classList</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="s1">&#39;dark&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">updateUtterancesTheme</span><span class="p">(</span><span class="nx">isLight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">removeEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">handleMessageEvent</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">addEventListener</span><span class="p">(</span><span class="s1">&#39;message&#39;</span><span class="p">,</span> <span class="nx">handleMessageEvent</span><span class="p">)</span>
+</span></span></code></pre></div><p>After these changes, the theme is set correctly after the page loads. The only thing left to do is to update the theme after toggling it using the icon at the top of the page.</p>
+<p>Luckily, with PaperModX, it&rsquo;s quite easy to do. I just had to add the <code>updateUtterancesTheme</code> function to the array of callbacks that will be invoked every time the theme is changed, like this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="c1">// Update utterances theme every time the theme is changed by a user
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">toggleThemeCallbacks</span><span class="p">[</span><span class="s1">&#39;comments&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="nx">updateUtterancesTheme</span>
+</span></span></code></pre></div><p>And that&rsquo;s all! If you want to get the whole picture and see all the changes in one place, <a href="https://github.com/ClouddJR/arkadiuszchmura.com/commit/191666a418713c4ae25fac9b2b1f6659429b84a4">here&rsquo;s the commit</a> on my blog&rsquo;s repository that introduced utterances. Also, feel free to explore the rest of the code.</p>
+<h2 id="summary">Summary</h2>
+<p>In this post, I showed you how easy it is to add comments to your blog or website without much effort using a really useful tool called utterances. Additionally, I presented a way of updating the theme used by the utterances widget so that you can correctly adjust it to a dark or light theme on your website. I hope you found that post helpful!</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>How to make expandable text with a button in Jetpack Compose</title>
       <link>https://arkadiuszchmura.com/posts/how-to-make-expandable-text-with-a-button-in-jetpack-compose/</link>
