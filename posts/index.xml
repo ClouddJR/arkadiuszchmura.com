@@ -6,7 +6,94 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 30 May 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 30 Jun 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>How to dynamically change UIStackView axis</title>
+      <link>https://arkadiuszchmura.com/posts/how-to-dynamically-change-uistackview-axis/</link>
+      <pubDate>Fri, 30 Jun 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/how-to-dynamically-change-uistackview-axis/</guid>
+      <description>Let&amp;rsquo;s see how we can change the axis from horizontal to vertical once the elements no longer fit the screen properly.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>Recently, when working on an iOS app, I had to adjust the UI to work correctly with increased font size.</p>
+<p>I had a <code>UIStackView</code> with its children laid horizontally - a <code>UILabel</code> and a <code>UIButton</code>. This is what the UI looked like:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/uistackview/ui.png#center" width="300"/> 
+</figure>
+
+<p>And this is the code representing the stack and its elements:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-swift" data-lang="swift"><span class="line"><span class="cl"><span class="kd">private</span> <span class="kr">lazy</span> <span class="kd">var</span> <span class="nv">stackView</span><span class="p">:</span> <span class="n">UIStackView</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">stackView</span> <span class="p">=</span> <span class="n">UIStackView</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">spacing</span> <span class="p">=</span> <span class="mf">16.0</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">distribution</span> <span class="p">=</span> <span class="p">.</span><span class="n">equalSpacing</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">translatesAutoresizingMaskIntoConstraints</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">stackView</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kr">lazy</span> <span class="kd">var</span> <span class="nv">label</span><span class="p">:</span> <span class="n">UILabel</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">label</span> <span class="p">=</span> <span class="n">UILabel</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">label</span><span class="p">.</span><span class="n">text</span> <span class="p">=</span> <span class="s">&#34;Lorem ipsum dolor&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">label</span><span class="p">.</span><span class="n">font</span> <span class="p">=</span> <span class="n">UIFont</span><span class="p">.</span><span class="n">preferredFont</span><span class="p">(</span><span class="n">forTextStyle</span><span class="p">:</span> <span class="p">.</span><span class="n">body</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">label</span><span class="p">.</span><span class="n">adjustsFontForContentSizeCategory</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">label</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kr">lazy</span> <span class="kd">var</span> <span class="nv">button</span><span class="p">:</span> <span class="n">UIButton</span> <span class="p">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">button</span> <span class="p">=</span> <span class="n">UIButton</span><span class="p">(</span><span class="n">type</span><span class="p">:</span> <span class="p">.</span><span class="n">system</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">button</span><span class="p">.</span><span class="n">setTitle</span><span class="p">(</span><span class="s">&#34;Action&#34;</span><span class="p">,</span> <span class="k">for</span><span class="p">:</span> <span class="p">.</span><span class="n">normal</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">button</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">?.</span><span class="n">font</span> <span class="p">=</span> <span class="n">UIFont</span><span class="p">.</span><span class="n">preferredFont</span><span class="p">(</span><span class="n">forTextStyle</span><span class="p">:</span> <span class="p">.</span><span class="n">body</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">button</span><span class="p">.</span><span class="n">titleLabel</span><span class="p">?.</span><span class="n">adjustsFontForContentSizeCategory</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">button</span>
+</span></span><span class="line"><span class="cl"><span class="p">}()</span>
+</span></span></code></pre></div><p>Right now, as we can see above, everything looks just fine. Both the label and button are fully visible. The problem appears when the user increases the font size in the system settings. We can easily emulate that using the simulator and the <code>⌥ ⌘ +</code> shortcut while the app is launched:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/uistackview/before.gif#center" width="300"/> 
+</figure>
+
+<p>When both elements don&rsquo;t fit horizontally, they are compressed more and more as we further increase the font size. Ultimately, the button&rsquo;s title disappears entirely, and we only see the three dots. Far from a good user experience, right?</p>
+<p>Ideally, we would like to display the elements vertically when they no longer fit horizontally. Luckily, changing the axis of a <code>UIStackView</code> is trivial. It&rsquo;s enough to modify a single property (<code>stackView.axis = .vertical</code>).</p>
+<p>But the challenge, however, is to trigger that change only when we detect that the label and button can&rsquo;t fit our screen horizontally without being compressed. Otherwise, we still want them to remain in the same configuration if there&rsquo;s enough space. Let&rsquo;s see how we can do that.</p>
+<h2 id="solution">Solution</h2>
+<p>The <code>UIView</code> contains a function we can override to solve our problem - <code>layoutSubviews</code>. The documentation says that</p>
+<blockquote>
+<p>Subclasses can override this method as needed to perform more precise layout of their subviews.</p>
+</blockquote>
+<p>In our case, a more precise layout is exactly what we need.</p>
+<p>Generally, this function is called on a view every time layout changes occur. It includes situations like modifying the view&rsquo;s bounds, changing the interface orientation, calling <code>setNeedsLayout</code> or <code>layoutIfNeeded</code> on a view, etc.</p>
+<p>This also implies that <code>layoutSubviews</code> is going to be called when the user increases the font size, which is exactly what we want.</p>
+<p>Here&rsquo;s the code that we can put inside the <code>layoutSubviews</code> of our stack view&rsquo;s parent to solve our problem:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-swift" data-lang="swift"><span class="line"><span class="cl"><span class="kr">override</span> <span class="kd">func</span> <span class="nf">layoutSubviews</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kc">super</span><span class="p">.</span><span class="n">layoutSubviews</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">maxWidth</span> <span class="p">=</span> <span class="n">bounds</span><span class="p">.</span><span class="n">width</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">labelWidth</span> <span class="p">=</span> <span class="n">label</span><span class="p">.</span><span class="n">sizeThatFits</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">).</span><span class="n">width</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">buttonWidth</span> <span class="p">=</span> <span class="n">button</span><span class="p">.</span><span class="n">sizeThatFits</span><span class="p">(</span><span class="n">frame</span><span class="p">.</span><span class="n">size</span><span class="p">).</span><span class="n">width</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">spacing</span> <span class="p">=</span> <span class="n">stackView</span><span class="p">.</span><span class="n">spacing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">let</span> <span class="nv">isHorizontal</span> <span class="p">=</span> <span class="n">maxWidth</span> <span class="o">&gt;</span> <span class="n">labelWidth</span> <span class="o">+</span> <span class="n">buttonWidth</span> <span class="o">+</span> <span class="n">spacing</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">axis</span> <span class="p">=</span> <span class="n">isHorizontal</span> <span class="p">?</span> <span class="p">.</span><span class="n">horizontal</span> <span class="p">:</span> <span class="p">.</span><span class="n">vertical</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">alignment</span> <span class="p">=</span> <span class="n">isHorizontal</span> <span class="p">?</span> <span class="p">.</span><span class="n">firstBaseline</span> <span class="p">:</span> <span class="p">.</span><span class="n">leading</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stackView</span><span class="p">.</span><span class="n">invalidateIntrinsicContentSize</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>At first glance, the code might look complicated, so let&rsquo;s break it down.</p>
+<p>Firstly, we determine whether the stack view should be horizontal or not. We do this by summing the widths of the label and button with the stack view&rsquo;s spacing.</p>
+<p>If that sum is less than or equal to the width of the stack view&rsquo;s parent, it&rsquo;s safe to make the stack view horizontal because the elements would fit appropriately without being compressed. In other cases, the stack view should be vertical.</p>
+<blockquote>
+<p>We use <code>sizeThatFits</code> to calculate the size of a view. The documentation mentions that this method &ldquo;asks the view to calculate and return the size that best fits the specified size&rdquo;. In this case, we are passing the frame size of the stack view&rsquo;s parent.</p>
+</blockquote>
+<p>Additionally, we adjust the alignment so that in vertical mode, the elements are aligned to the leading edge of the screen and by first baseline in horizontal mode. Lastly, we call the <code>invalidateIntrinsicContentSize</code> to announce that the intrinsic size of our stack view has changed.</p>
+<p>With those changes, we achieved the desired result:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/uistackview/after.gif#center" width="300"/> 
+</figure>
+
+<p>Initially, the elements are laid horizontally, same as before. Only when they would no longer fit entirely are they wrapped and displayed vertically.</p>
+<h2 id="summary">Summary</h2>
+<p>I hope the solution presented here will make it easier for you to make your app more accessible, which I believe is crucial. If you&rsquo;re interested, here&rsquo;s a <a href="https://gist.github.com/ClouddJR/76569dbc98f5179de6ff1cd3c453dc4c">link</a> to the entire source code of the application presented in this post.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>How to setup comments on your static blog</title>
       <link>https://arkadiuszchmura.com/posts/how-to-setup-comments-on-your-static-blog/</link>
