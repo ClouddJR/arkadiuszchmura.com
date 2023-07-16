@@ -1,3 +1,24 @@
+<!-- 
+    Putting the newsletter form here because it seems it's the easiest option to put it above 
+    the comments section on every blog post.
+-->
+<div class="newsletter">
+    <h2 class="header">Subscribe to my newsletter.</h2>
+
+    <p class="prompt">Enjoyed this post? Subscribe to be notified about my new blog posts that I consider worth sharing.</p>
+
+    <form 
+        action="https://tinyletter.com/cloudjr"
+        method="post"
+        target="popupwindow"
+        onsubmit="window.open('https://tinyletter.com/cloudjr', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true"
+    >
+        <label for="email-address" class="sr-only">Email address</label>
+        <input id="email-address" name="email" type="email" autocomplete="email" required="" placeholder="Enter your email">
+        <button type="submit">Subscribe</button>
+    </form>
+</div>
+
 <script src="https://utteranc.es/client.js"
         repo="ClouddJR/arkadiuszchmura.com"
         issue-term="pathname"
