@@ -6,7 +6,63 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Fri, 21 Jul 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Tue, 22 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Switching between apps using shortcuts on macOS</title>
+      <link>https://arkadiuszchmura.com/posts/switching-between-apps-using-shortcuts-on-macos/</link>
+      <pubDate>Tue, 22 Aug 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/switching-between-apps-using-shortcuts-on-macos/</guid>
+      <description>This is one of the most common activities when working on a computer. To make it as seamless as possible, I assigned a custom shortcut for every app I commonly use.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>As a developer, I&rsquo;m always interested in different ways to improve my workflow, especially when it comes to tasks I perform frequently every single day. Switching between apps is one of those things.</p>
+<p>I was looking for an option that would allow me to switch between apps as smoothly as possible without thinking too much about it or having to reach for my mouse.</p>
+<h2 id="why-werent-existing-options-enough">Why weren&rsquo;t existing options enough?</h2>
+<h4 id="using-the-dock">Using the dock</h4>
+<p>This option requires a mouse, which disqualifies it completely. Additionally, it only lets you switch between already running apps. You can&rsquo;t launch an app unless you have it pinned in the dock.</p>
+<h4 id="cmd--tab">CMD + Tab</h4>
+<p>This technique works fine when switching between the two most recently used apps. However, if you regularly access more than two apps, you will often find yourself examining the CMD + Tab menu looking for the app you want to switch to.</p>
+<p>Additionally, as with the previous option, you can only switch between already running apps. Launching is not possible.</p>
+<h4 id="searching-with-spotlight-or-alternatives">Searching with Spotlight (or alternatives)</h4>
+<p>These tools are great for launching apps but not so great for quick switching. Not only do you have to use a shortcut to trigger the search bar first (usually CMD + space), but also type at least a couple of characters to find the app you&rsquo;re looking for.</p>
+<h4 id="stage-manager">Stage Manager</h4>
+<p><a href="https://support.apple.com/en-gb/HT213315">This feature</a> has been introduced in macOS Ventura. Although it seems really useful at first glance, it&rsquo;s still mainly a mouse/trackpad-oriented feature.</p>
+<h2 id="solution-custom-shortcuts">Solution: custom shortcuts</h2>
+<p>The technique that proved to be the most effective one for me was assigning a custom keyboard shortcut for every app I use frequently.</p>
+<p>To do that, I first remapped the right command to act as the so-called hyper key (using <a href="https://karabiner-elements.pqrs.org">Karabiner</a>). This means that when I press the right command, it acts as if the CTRL+SHIFT+CMD+OPT modifiers were pressed simultaneously. This combination is pretty much guaranteed not to conflict with anything else on your computer. What kind of app would define a shortcut involving all four modifiers anyway?</p>
+<p>Next, I defined shortcuts for some of my apps using the hyper key. I did that in the <a href="https://www.raycast.com/">Raycast</a> app. It was the easiest option for me because I have already been using it as a Spotlight alternative anyway. However, if you don&rsquo;t use Raycast, any other tool would work just fine for that purpose, like <a href="https://folivora.ai/">BetterTouchTool</a>.</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/shortcuts/raycast.png#center"
+         alt="Assigning hyper key &#43; t shortcut to access iTerm in Raycast&amp;rsquo;s settings."/> <figcaption>
+            <p>Assigning hyper key + t shortcut to access iTerm in Raycast&rsquo;s settings.</p>
+        </figcaption>
+</figure>
+
+<p>After these changes, I am always a single keyboard shortcut away from apps I commonly use. This is what my workflow looks like in practice:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/shortcuts/workflow.gif#center"
+         alt="My workflow for quickly switching between apps using shortcuts."/> <figcaption>
+            <p>My workflow for quickly switching between apps using shortcuts.</p>
+        </figcaption>
+</figure>
+
+<p>This approach has another benefit of being able to launch the app if it wasn&rsquo;t running already and also switch focus to another monitor or space if the app is somewhere else at the time of pressing the shortcut.</p>
+<h3 id="switching-between-spaces">Switching between spaces</h3>
+<p>Besides assigning shortcuts for apps, I assigned shortcuts for spaces. In practice, I use them less often, but they can be valuable in some situations, like when I have multiple apps&rsquo; windows arranged in a certain way in various spaces and want to switch between them quickly.</p>
+<p>You can do that in the system settings without installing any third-party app by going to <code>Keyboard</code> -&gt; <code>Keyboard Shortcuts</code> -&gt; <code>Mission Control</code> (make sure first to open some spaces because these options won&rsquo;t be visible otherwise):</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/shortcuts/spaces.png#center"
+         alt="Assigning shortcuts for spaces in the system settings (I used the hyper key again here)."/> <figcaption>
+            <p>Assigning shortcuts for spaces in the system settings (I used the hyper key again here).</p>
+        </figcaption>
+</figure>
+
+<p>I was slightly annoyed by the default transition animation when switching between spaces. Luckily, it can be minimized by turning on the <code>Reduce motion</code> option in the system settings (under <code>Accessibility</code> -&gt; <code>Display</code>). Keep in mind that it won&rsquo;t get rid of that animation completely. There are ways to turn it off completely, but they all require disabling the <a href="https://en.wikipedia.org/wiki/System_Integrity_Protection">System Integrity Protection</a>, which I&rsquo;m not interested in doing (especially on a work laptop).</p>
+<h2 id="summary">Summary</h2>
+<p>I hope you found this post useful. If you have some ideas about how this workflow could be improved even further, let me know here in the comments section or reach out to me on <a href="https://twitter.com/ClouddJR/">Twitter</a>.</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Stop perfecting your config</title>
       <link>https://arkadiuszchmura.com/posts/stop-perfecting-your-config/</link>
@@ -537,7 +593,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="p">(</span><span class="n">numbers</span><span class="p">.</span><span class="n">takeUntil</span> <span class="p">{</span> <span class="k">it</span> <span class="o">&gt;=</span> <span class="m">5</span> <span class="p">})</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>When executed, this code prints a correct result (a list of numbers from 1 to 5 included), but we&rsquo;re interested in something else here. Let&rsquo;s see the decompiled version of the code above:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">});</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">,</span> <span class="n">7</span><span class="o">});</span>  
 </span></span><span class="line"><span class="cl"><span class="n">List</span> <span class="n">var1</span> <span class="o">=</span> <span class="n">takeUntil</span><span class="o">((</span><span class="n">Iterable</span><span class="o">)</span><span class="n">numbers</span><span class="o">,</span> <span class="o">(</span><span class="n">Function1</span><span class="o">)</span><span class="kc">null</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">);</span>
 </span></span></code></pre></div><p>As you can see, the <code>takeUntil</code> function takes a mysterious <code>(Function1)null.INSTANCE</code> object as an argument. Where does it come from?</p>
 <p>Unfortunately, the generated <code>Function1</code> interface doesn&rsquo;t reflect in the decompiled Java code, so we must dive deeper - into the bytecode itself.</p>
@@ -574,11 +630,11 @@
 </span></span></code></pre></div><p>As you can see, there is no <code>GETSTATIC</code> instruction anymore. Instead, there is <code>INVOKESPECIAL</code> that calls <code>&lt;init&gt;</code>. This line means we are creating a new object of that class. Given that we run this code 1000 times, the same number of new objects will be created at this point.</p>
 <p>It&rsquo;s worth remembering that when we create lambdas that capture closures, there will <strong>always</strong> be a new object created, as the above experiment proved. However, in most cases, that won&rsquo;t be a huge problem (unless you deal with a performance-critical application).</p>
 <p>Regardless, the solution is to use inline functions. When we mark our <code>takeUntil</code> function as <code>inline</code>, this is the decompiled Java code that we get for the <code>main()</code> function:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">});</span>  
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>  
-</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">var2</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">,</span> <span class="n">7</span><span class="o">});</span>  
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="n">5</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">1000</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">var3</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">var3</span> <span class="o">&lt;</span> <span class="n">var2</span><span class="o">;</span> <span class="o">++</span><span class="n">var3</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">var3</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">var3</span> <span class="o">&lt;</span> <span class="n">var2</span><span class="o">;</span> <span class="o">++</span><span class="n">var3</span><span class="o">)</span> <span class="o">{</span>  
 </span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">var5</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">   <span class="n">Iterable</span> <span class="n">$this$takeUntil$iv</span> <span class="o">=</span> <span class="o">(</span><span class="n">Iterable</span><span class="o">)</span><span class="n">numbers</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">$i$f$takeUntil</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>  
