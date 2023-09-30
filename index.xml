@@ -6,7 +6,75 @@
     <description>Recent content on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 22 Aug 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 30 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Making the most of GitHub Code Search</title>
+      <link>https://arkadiuszchmura.com/posts/making-the-most-of-github-code-search/</link>
+      <pubDate>Sat, 30 Sep 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/making-the-most-of-github-code-search/</guid>
+      <description>The new search engine offers powerful code searching mechanisms we can leverage for quickly finding the code we need, as well as for exploration and learning.</description>
+      <content:encoded><![CDATA[<h2 id="introduction">Introduction</h2>
+<p>The GitHub Code Search tool was launched as a technical preview in December 2021. Almost 1.5 years later, in May 2023, it was made generally available to all GitHub users.</p>
+<p>Fortunately, I was one of the developers who got access to the early versions of the new search engine. Months of exploration and largely positive experience led me to include this tool as an essential part of my daily workflow.</p>
+<p>In this post, I will explain what makes this tool great not merely for searching code, but also for exploration and learning.</p>
+<h2 id="overview-of-github-code-search">Overview of GitHub Code Search</h2>
+<p>You can access the new search tool by clicking on the search bar at the top of the GitHub website, by pressing the <code>/</code> character, or by going straight to <a href="https://github.com/search">https://github.com/search</a>.</p>
+<p>The documentation for code search syntax can be found
+<a href="https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax">under this link</a>, but here&rsquo;s a quick overview of what you can do:</p>
+<ul>
+<li>Searching for <code>index</code> will return files containing the term &ldquo;index&rdquo; in their content or path. So it would return both <code>public/index.php</code>, even if it doesn&rsquo;t contain the term &ldquo;index&rdquo;, and <code>public/sitemap.xml</code>, if it does.</li>
+<li>Search supports boolean expressions. You can use <code>AND</code>, <code>OR</code>, and <code>NOT</code> operators. For example, the <code>bitmap OR index</code> query will return files containing the term &ldquo;bitmap&rdquo; or &ldquo;index&rdquo;, in any order. The <code>bitmap index</code> query uses an explicit <code>AND</code> operator, so it&rsquo;s equivalent to <code>bitmap AND index</code>. Parenthesis can be used to compose more complex expressions, like <code>bitmap AND (index OR header)</code>.</li>
+<li>To search for an exact string, including whitespace, you can surround the query with double quotes. If your query contains quotation marks, you can escape them with a backslash. For instance, to search for the <code>&quot;license&quot;: &quot;MIT&quot;</code> string, we could use the <code>&quot;\&quot;license\&quot;: \&quot;MIT\&quot;&quot;</code> query.</li>
+<li>It&rsquo;s possible to use regular expressions. You can do that by surrounding the expression with slashes. For example, to search for Polish postal codes, we could use the <code>/\d{2}-\d{3}/</code> query.</li>
+<li>You can narrow your search using special qualifiers, like <code>org:github</code>, <code>user:ClouddJR</code>, <code>language:ruby</code>, <code>path:*.txt</code> (notice the <code>path:</code> qualifier supports glob expressions), or <code>symbol:HelloController</code>. You can see the full list of available qualifiers with an explanation <a href="https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax#using-qualifiers">here</a>.</li>
+</ul>
+<p>Results for code search are always restricted to 100 results (5 pages). At the time of writing this post, sorting is not supported, although some heuristics are used to prioritize more meaningful results. In most cases, you can expect results from popular repositories to appear first.</p>
+<p>There are other limitations worth keeping in mind, like the fact that large repositories might not be indexed at all. The same applies to long lines (over 1024 characters) and files (over 350 KiB). <a href="https://docs.github.com/en/search-github/github-code-search/about-github-code-search#limitations">Here</a> you can find a list of all current limitations.</p>
+<h3 id="saved-searches">Saved searches</h3>
+<p>If you find yourself typing the same query over and over again, you might want to use the mechanism for saving searches.</p>
+<p>To do that, type <code>saved:</code> in the search bar and click on &ldquo;Manage saved searches&rdquo;. You can add your query there, which will be visible in the &ldquo;Saved queries&rdquo; section when you later access the search bar.</p>
+<h3 id="advanced-search-page">Advanced search page</h3>
+<p>This post focuses specifically on GitHub Code Search. If you want to search for non-code content, like issues, you can go to the <a href="https://github.com/search/advanced">advanced search page</a>. This page provides a visual interface for constructing search queries so that you don&rsquo;t have to remember all the available options.</p>
+<p>However, if you prefer to type your queries manually, <a href="https://docs.github.com/en/search-github/searching-on-github">here&rsquo;s</a> a documentation for qualifiers that can be used when searching for non-code content.</p>
+<p>Remember that you can use the same search bar for both code and non-code searches, although the syntax might differ.</p>
+<h2 id="examples">Examples</h2>
+<p>After using the new code search for some time, I found myself using some features more frequently than others. This section will show you the most popular use cases for this tool in my workflow.</p>
+<h3 id="learning-a-new-api">Learning a new API</h3>
+<p>When learning something new, it makes sense to see some practical examples. They can often be found in the official documentation, but that is not always the case.</p>
+<p>Using the search engine, you can find real-life examples of the technology you&rsquo;re exploring. For example, let&rsquo;s say you&rsquo;re learning SwiftUI and would like to see some examples of how to use the <code>NavigationStack</code> in practice.</p>
+<p>You can do that with this simple query: <code>&quot;NavigationStack {&quot; language:Swift</code>.</p>
+<p>This approach has another benefit. While searching for the code you need, you might find some interesting repositories you were unaware of.</p>
+<h3 id="searching-for-options">Searching for options</h3>
+<p>Recently, I tried to extend the size of my shell&rsquo;s history. I knew the options I had to modify in my <code>.zshrc</code> file, but I didn&rsquo;t know what values are used for these options in practice.</p>
+<p>A quick search across the GitHub repositories with the <code>HISTFILESIZE language:Shell</code> query showed me what values are common in many dotfiles repositories.</p>
+<h3 id="inspiration-for-key-bindings">Inspiration for key bindings</h3>
+<p>If you want to find out how people configure their tools, like editors, using the search engine can be a great option.</p>
+<p>For instance, to see what keymaps people use for finding files using <a href="https://github.com/nvim-telescope/telescope.nvim">Telescope</a> in <a href="https://neovim.io/">Neovim</a>, you could search for <code>builtin.find_files language:Lua</code>.</p>
+<h3 id="readme-files">README files</h3>
+<p>Writing good documentation is hard. Therefore, when doing this ourselves, it might make sense to get some inspiration by reading some well-written README files available on GitHub.</p>
+<p>By using the <code>path:/(^|\/)README\.md$/</code> query, we can find some <code>README.md</code> files from popular repositories. But obviously, the popularity of a repository doesn&rsquo;t always have to correlate to the quality of its README file.</p>
+<h3 id="definition-of-a-class">Definition of a class</h3>
+<p>The <code>symbol:</code> qualifier is one of the most useful ones. You could use it to find the definition of a specific class (or any other symbol, like a function) when you don&rsquo;t know the repository the class is in. The query could look like this: <code>symbol:HelloController org:github language:Ruby</code>.</p>
+<p>This way of searching is especially handy when your company uses a microservices architecture and the code is distributed across hundreds (or thousands) of repositories.</p>
+<p>You can check out <a href="https://docs.github.com/en/search-github/github-code-search/understanding-github-code-search-syntax#symbol-qualifier">this link</a> for a list of supported languages for symbol searching.</p>
+<h3 id="sensitive-information">Sensitive information</h3>
+<p>Unfortunately, with the power of the new search tool, it&rsquo;s now almost effortless to find repositories that contain sensitive information (like API keys for Firebase, etc.)</p>
+<p>The <code>&quot;\&quot;current_key\&quot;: &quot; path:google-services.json</code> query reveals a lot of unprotected repositories.</p>
+<blockquote>
+<p>Note that even though the <code>google-services.json</code> file itself is considered safe to share with other people, it may contain additional information about your resources, like your database URL. If your security rules are not configured properly, an attacker could use that against you.</p>
+</blockquote>
+<p>However, we could use this capability to find repositories in our organization that expose sensitive information and address these vulnerabilities immediately.</p>
+<h2 id="additional-resources">Additional resources</h2>
+<p>I hope you found this post useful. If you have some questions, leave a comment here or reach out to me on <a href="https://twitter.com/ClouddJR/">Twitter</a>.</p>
+<p>If you&rsquo;d like to learn more about the technology behind the new search tool, here are some additional resources I recommend:</p>
+<ul>
+<li><a href="https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/">https://github.blog/2023-02-06-the-technology-behind-githubs-new-code-search/</a> - a high-level overview of the design and architecture of the new code search.</li>
+<li><a href="https://github.blog/2021-12-15-a-brief-history-of-code-search-at-github/">https://github.blog/2021-12-15-a-brief-history-of-code-search-at-github/</a> - a brief history of previous attempts at building a search engine suitable for GitHub&rsquo;s scale and an explanation of why building from scratch was necessary despite existing open-source solutions.</li>
+</ul>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Switching between apps using shortcuts on macOS</title>
       <link>https://arkadiuszchmura.com/posts/switching-between-apps-using-shortcuts-on-macos/</link>
@@ -593,7 +661,7 @@
 </span></span><span class="line"><span class="cl">    <span class="n">println</span><span class="p">(</span><span class="n">numbers</span><span class="p">.</span><span class="n">takeUntil</span> <span class="p">{</span> <span class="k">it</span> <span class="o">&gt;=</span> <span class="m">5</span> <span class="p">})</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span></code></pre></div><p>When executed, this code prints a correct result (a list of numbers from 1 to 5 included), but we&rsquo;re interested in something else here. Let&rsquo;s see the decompiled version of the code above:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">,</span> <span class="n">7</span><span class="o">});</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">});</span>  
 </span></span><span class="line"><span class="cl"><span class="n">List</span> <span class="n">var1</span> <span class="o">=</span> <span class="n">takeUntil</span><span class="o">((</span><span class="n">Iterable</span><span class="o">)</span><span class="n">numbers</span><span class="o">,</span> <span class="o">(</span><span class="n">Function1</span><span class="o">)</span><span class="kc">null</span><span class="o">.</span><span class="na">INSTANCE</span><span class="o">);</span>
 </span></span></code></pre></div><p>As you can see, the <code>takeUntil</code> function takes a mysterious <code>(Function1)null.INSTANCE</code> object as an argument. Where does it come from?</p>
 <p>Unfortunately, the generated <code>Function1</code> interface doesn&rsquo;t reflect in the decompiled Java code, so we must dive deeper - into the bytecode itself.</p>
@@ -630,11 +698,11 @@
 </span></span></code></pre></div><p>As you can see, there is no <code>GETSTATIC</code> instruction anymore. Instead, there is <code>INVOKESPECIAL</code> that calls <code>&lt;init&gt;</code>. This line means we are creating a new object of that class. Given that we run this code 1000 times, the same number of new objects will be created at this point.</p>
 <p>It&rsquo;s worth remembering that when we create lambdas that capture closures, there will <strong>always</strong> be a new object created, as the above experiment proved. However, in most cases, that won&rsquo;t be a huge problem (unless you deal with a performance-critical application).</p>
 <p>Regardless, the solution is to use inline functions. When we mark our <code>takeUntil</code> function as <code>inline</code>, this is the decompiled Java code that we get for the <code>main()</code> function:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="n">1</span><span class="o">,</span> <span class="n">2</span><span class="o">,</span> <span class="n">3</span><span class="o">,</span> <span class="n">4</span><span class="o">,</span> <span class="n">5</span><span class="o">,</span> <span class="n">6</span><span class="o">,</span> <span class="n">7</span><span class="o">});</span>  
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="n">5</span><span class="o">;</span>  
-</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">var2</span> <span class="o">=</span> <span class="n">1000</span><span class="o">;</span>  
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">List</span> <span class="n">numbers</span> <span class="o">=</span> <span class="n">CollectionsKt</span><span class="o">.</span><span class="na">listOf</span><span class="o">(</span><span class="k">new</span> <span class="n">Integer</span><span class="o">[]{</span><span class="mi">1</span><span class="o">,</span> <span class="mi">2</span><span class="o">,</span> <span class="mi">3</span><span class="o">,</span> <span class="mi">4</span><span class="o">,</span> <span class="mi">5</span><span class="o">,</span> <span class="mi">6</span><span class="o">,</span> <span class="mi">7</span><span class="o">});</span>  
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">limit</span> <span class="o">=</span> <span class="mi">5</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl"><span class="kt">short</span> <span class="n">var2</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">  
-</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">var3</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">var3</span> <span class="o">&lt;</span> <span class="n">var2</span><span class="o">;</span> <span class="o">++</span><span class="n">var3</span><span class="o">)</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl"><span class="k">for</span><span class="o">(</span><span class="kt">int</span> <span class="n">var3</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">var3</span> <span class="o">&lt;</span> <span class="n">var2</span><span class="o">;</span> <span class="o">++</span><span class="n">var3</span><span class="o">)</span> <span class="o">{</span>  
 </span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">var5</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">   <span class="n">Iterable</span> <span class="n">$this$takeUntil$iv</span> <span class="o">=</span> <span class="o">(</span><span class="n">Iterable</span><span class="o">)</span><span class="n">numbers</span><span class="o">;</span>  
 </span></span><span class="line"><span class="cl">   <span class="kt">int</span> <span class="n">$i$f$takeUntil</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>  
