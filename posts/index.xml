@@ -6,7 +6,46 @@
     <description>Recent content in Posts on Arkadiusz Chmura</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 30 Sep 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sun, 08 Oct 2023 00:00:00 +0000</lastBuildDate><atom:link href="https://arkadiuszchmura.com/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Accessing cheatsheets from the command line</title>
+      <link>https://arkadiuszchmura.com/posts/accessing-cheatsheets-from-the-command-line/</link>
+      <pubDate>Sun, 08 Oct 2023 00:00:00 +0000</pubDate>
+      
+      <guid>https://arkadiuszchmura.com/posts/accessing-cheatsheets-from-the-command-line/</guid>
+      <description>The cheat.sh utility allows you to access a lot of comprehensive, community-driven cheatsheets for many popular tools.</description>
+      <content:encoded><![CDATA[<h2 id="the-problem">The problem</h2>
+<p>Very often, I know which command line tool would come in handy for a given task at hand, but I can&rsquo;t recall the exact syntax I should use or the options that are available to me.</p>
+<p>Looking into the documentation is definitely an option, but they sometimes lack practical examples. Also, usually, I&rsquo;m already familiar with this tool, but I just need a quick refresher.</p>
+<h2 id="the-solution">The solution</h2>
+<p>Meet <a href="https://github.com/chubin/cheat.sh">cheat.sh</a>. An open-source tool that gives you access to community-driven cheatsheets for programming languages, DBMSes, and command line tools through a simple interface.</p>
+<p>Want a <a href="https://xkcd.com/1168/">quick overview</a> of the <code>tar</code> utility? Just type this in your terminal, no installation required:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl cht.sh/tar
+</span></span></code></pre></div><p>You&rsquo;ll get answers from multiple cheatsheets repositories at the same time. The screenshot below shows the part of the response that comes from the <a href="https://tldr.sh/">https://tldr.sh/</a> website:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/cheatsh/tar.png#center"/> 
+</figure>
+
+<p>It also works for programming languages. For example, to learn about list comprehension in Python, you could use this:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl cht.sh/python/list_comprehension
+</span></span></code></pre></div><blockquote>
+<p>To get a list of topics available for a given language, execute <code>curl cht.sh/python/:list</code>. Additionally, most languages have a special <code>:learn</code> page that describes the basics to get you started quickly.</p>
+</blockquote>
+<h3 id="command-line-client">Command line client</h3>
+<p>If you don&rsquo;t want to constantly type the <code>curl</code> command to access the cheatsheets, you can install the command line client according to the <a href="https://github.com/chubin/cheat.sh#command-line-client-chtsh">instructions</a> on the GitHub page. There is also an option to activate tab completion support.</p>
+<p>I did all of the above and created a custom bash function called <code>c</code> that executes the script and also pipes the result to the <code>less</code> program for convenience (the <code>&quot;$@&quot;</code> part refers to arguments passed to the function).</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="k">function</span> c<span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">$HOME</span>/.dotfiles/shell/scripts/cht.sh <span class="s2">&#34;</span><span class="nv">$@</span><span class="s2">&#34;</span> <span class="p">|</span> less
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>After doing that, I can start typing <code>c ff</code> and instantly get suggestions matching the query:</p>
+<figure class="align-center ">
+    <img loading="lazy" src="/cheatsh/ffmpeg.gif#center"/> 
+</figure>
+
+<p>If you&rsquo;re interested, here&rsquo;s a <a href="https://github.com/ClouddJR/dotfiles/commit/6b95fd1ee4e2d343d148336fa4d85ad8a230ad97">commit</a> in my dotfiles repository where I added this tool (notice the <code>#compdef c</code> line at the top of the <code>_cth</code> file that was necessary to get tab completion for my custom function).</p>
+]]></content:encoded>
+    </item>
+    
     <item>
       <title>Making the most of GitHub Code Search</title>
       <link>https://arkadiuszchmura.com/posts/making-the-most-of-github-code-search/</link>
