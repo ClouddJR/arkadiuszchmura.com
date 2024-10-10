@@ -71,7 +71,7 @@ Secondly, Gatekeeper will **only** verify applications that have the quarantine 
 
 Apps like web browsers or email clients properly attach the quarantine flag to all downloaded files, but many don't, like most BitTorrent client software. The flag is also not added if the app came from a different source, like network shares or USB drives.
 
-To illustrate this, let's download `ffmpeg` again, this time using `curl`. Then, when we unzip it and run `xattr` on the executable, we can see that there is no quarantine flag attached. Also, running doesn't trigger any alerts displayed by the OS:
+To illustrate this, let's download `ffmpeg` again, this time using `curl`. Then, when we unzip it and run `xattr` on the executable, we can see that there is no quarantine flag attached. Also, running doesn't trigger any OS alerts:
 
 {{< figure 
 align=center
@@ -80,7 +80,7 @@ src="/yt-dlp/5.png"
 
 We bypassed all Gatekeeper checks by simply using a program that doesn't attach the quarantine flag (that's one of the reasons why this mechanism received some [criticism](https://en.wikipedia.org/wiki/Gatekeeper_(macOS)#Implications)).
 
-I used the exact same "trick" in my app. Instead of bundling `yt-dlp`, `ffmpeg`, and `ffprobe` within my app, which would violate the licenses, or requiring users to download them manually, I simply download the dependencies upon the first app launch and store them outside of the app in the user's home directory, without disrespecting the licenses.
+I used the exact same "trick" in my app. Instead of bundling `yt-dlp`, `ffmpeg`, and `ffprobe` within my app, which would violate their licenses, or requiring users to download them manually, I simply download the dependencies upon the first app launch and store them outside of the app in the user's home directory, without disrespecting the licenses.
 
 Problem solved!
 
