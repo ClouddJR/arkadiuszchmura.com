@@ -52,13 +52,13 @@
 
 <p>Secondly, Gatekeeper will <strong>only</strong> verify applications that have the quarantine flag. The problem is that this flag is added by other applications, not by the operating system itself. It&rsquo;s the responsibility of app developers to make sure that this flag is added to any files downloaded by the app.</p>
 <p>Apps like web browsers or email clients properly attach the quarantine flag to all downloaded files, but many don&rsquo;t, like most BitTorrent client software. The flag is also not added if the app came from a different source, like network shares or USB drives.</p>
-<p>To illustrate this, let&rsquo;s download <code>ffmpeg</code> again, this time using <code>curl</code>. Then, when we unzip it and run <code>xattr</code> on the executable, we can see that there is no quarantine flag attached. Also, running doesn&rsquo;t trigger any alerts displayed by the OS:</p>
+<p>To illustrate this, let&rsquo;s download <code>ffmpeg</code> again, this time using <code>curl</code>. Then, when we unzip it and run <code>xattr</code> on the executable, we can see that there is no quarantine flag attached. Also, running doesn&rsquo;t trigger any OS alerts:</p>
 <figure class="align-center ">
     <img loading="lazy" src="/yt-dlp/5.png#center"/> 
 </figure>
 
 <p>We bypassed all Gatekeeper checks by simply using a program that doesn&rsquo;t attach the quarantine flag (that&rsquo;s one of the reasons why this mechanism received some <a href="https://en.wikipedia.org/wiki/Gatekeeper_(macOS)#Implications">criticism</a>).</p>
-<p>I used the exact same &ldquo;trick&rdquo; in my app. Instead of bundling <code>yt-dlp</code>, <code>ffmpeg</code>, and <code>ffprobe</code> within my app, which would violate the licenses, or requiring users to download them manually, I simply download the dependencies upon the first app launch and store them outside of the app in the user&rsquo;s home directory, without disrespecting the licenses.</p>
+<p>I used the exact same &ldquo;trick&rdquo; in my app. Instead of bundling <code>yt-dlp</code>, <code>ffmpeg</code>, and <code>ffprobe</code> within my app, which would violate their licenses, or requiring users to download them manually, I simply download the dependencies upon the first app launch and store them outside of the app in the user&rsquo;s home directory, without disrespecting the licenses.</p>
 <p>Problem solved!</p>
 <hr>
 <p>One final, but very important, thing to note is that the above little experiment proves that it&rsquo;s always crucial to make sure that we only open apps we trust. On the surface, the <code>Gatekeeper</code> mechanism sounds great and you would think it fully protects your computer against running potentially malicious executables, but, as we&rsquo;ve seen, that&rsquo;s unfortunately not always the case.</p>
